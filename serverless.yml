@@ -8,6 +8,7 @@ provider:
   region: eu-north-1
   environment:
     GITHUB_TOKEN: ${ssm:githubToken}
+    GITHUB_REPOSITORIES: ${ssm:githubRepositories}
 
 plugins:
   - serverless-offline
