@@ -13,14 +13,14 @@ module.exports.githubPrNotify = async (event) => {
 
   const repos = github_repositories.split(',');
 
-  let message = [];
+  let pull_requests = [];
 
   for (let repo of repos) {
     const { data } = await octokit.request(`GET /repos/${repo}/pulls`);
 
     if (data.length) {
       data.forEach(item => {
-        message.push({
+        pull_requests.push({
           title: item.title,
           url: item.html_url
         });
@@ -28,14 +28,17 @@ module.exports.githubPrNotify = async (event) => {
     }
   }
 
-  await axios({
-    url: process.env.SLACK_WEBHOOK,
-    method: 'post',
-    headers: { 'Content-type': 'application/json' },
-    data: {
-      'text': formatMessage(message)
-    }
-  });
+  // Notify to slack if PRs exists.
+  if (pull_requests.length) {
+    await axios({
+      url: process.env.SLACK_WEBHOOK,
+      method: 'post',
+      headers: { 'Content-type': 'application/json' },
+      data: {
+        'text': formatMessage(pull_requests)
+      }
+    });
+  }
 
   return {
     statusCode: 200,
