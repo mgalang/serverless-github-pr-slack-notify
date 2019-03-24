@@ -9,10 +9,9 @@ module.exports.githubPrNotify = async (event) => {
     auth: `token ${process.env.GITHUB_TOKEN}`
   })
 
-  const github_repositories = process.env.GITHUB_REPOSITORIES || '';
+  const repos = (process.env.GITHUB_REPOSITORIES && process.env.GITHUB_REPOSITORIES.split(',')) || '';
 
-  const repos = github_repositories.split(',');
-
+  // Merge all pull requests from several repos.
   let pull_requests = [];
 
   for (let repo of repos) {
