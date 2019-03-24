@@ -2,6 +2,7 @@
 
 const Octokit = require('@octokit/rest');
 const axios = require('axios');
+const { formatMessage } = require('./libs/helpers');
 
 module.exports.githubPrNotify = async (event) => {
   const octokit = new Octokit({
@@ -19,7 +20,10 @@ module.exports.githubPrNotify = async (event) => {
 
     if (data.length) {
       data.forEach(item => {
-        message.push([item.title, item.html_url]);
+        message.push({
+          title: item.title,
+          url: item.html_url
+        });
       });
     }
   }
@@ -29,9 +33,9 @@ module.exports.githubPrNotify = async (event) => {
     method: 'post',
     headers: { 'Content-type': 'application/json' },
     data: {
-      'text': message.map((value) => value.join('\n')).join('\n')
+      'text': formatMessage(message)
     }
-  })
+  });
 
   return {
     statusCode: 200,
