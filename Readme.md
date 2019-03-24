@@ -2,6 +2,8 @@
 
 A simple serverless application for notifying open pull request to project channels in slack.
 
+Notifications are sent through cron events (see `serverless.yml`)
+
 ## Requirements
 
 * [NodeJS](https://nodejs.org/en/) 8.x or later
