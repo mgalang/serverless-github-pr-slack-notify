@@ -1,0 +1,19 @@
+# Simple serverless app for notifying open github pull requests to slack
+
+service: serverless-github-pr-slack-notify
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  profile: personal
+  region: eu-north-1
+  environment:
+    GITHUB_TOKEN: ${ssm:githubToken}
+
+functions:
+  githubPrNotify:
+    handler: handler.githubPrNotify
+    events:
+      - schedule:
+        rate: cron (0 9 * * ? *)
+        enabled: false
