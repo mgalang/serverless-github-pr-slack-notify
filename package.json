@@ -4,7 +4,8 @@
   "description": "Simple serverless github PR slack notifier",
   "main": "handler.js",
   "dependencies": {
-    "@octokit/rest": "^16.20.0"
+    "@octokit/rest": "^16.20.0",
+    "axios": "^0.18.0"
   },
   "devDependencies": {
     "serverless-offline": "^4.9.2"
