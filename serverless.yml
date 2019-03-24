@@ -9,6 +9,7 @@ provider:
   environment:
     GITHUB_TOKEN: ${ssm:githubToken}
     GITHUB_REPOSITORIES: ${ssm:githubRepositories}
+    SLACK_WEBHOOK: ${ssm:slackWebhook}
 
 plugins:
   - serverless-offline
