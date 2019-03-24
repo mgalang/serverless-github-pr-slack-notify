@@ -1,6 +1,7 @@
 'use strict';
 
 const Octokit = require('@octokit/rest');
+const axios = require('axios');
 
 module.exports.githubPrNotify = async (event) => {
   const octokit = new Octokit({
@@ -18,11 +19,23 @@ module.exports.githubPrNotify = async (event) => {
 
     if (data.length) {
       data.forEach(item => {
-        message.push([item.title, item.url]);
+        message.push([item.title, item.html_url]);
       });
     }
   }
 
-  return message.map((value) => value.join('\n')).join('\n');
+  await axios({
+    url: process.env.SLACK_WEBHOOK,
+    method: 'post',
+    headers: { 'Content-type': 'application/json' },
+    data: {
+      'text': message.map((value) => value.join('\n')).join('\n')
+    }
+  })
+
+  return {
+    statusCode: 200,
+    body: 'Success',
+  }
 };
 
