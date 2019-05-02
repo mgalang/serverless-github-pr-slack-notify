@@ -5,5 +5,5 @@ module.exports.formatMessage = (message) => {
     .map((value) => `<${value.url}|${value.title}>`)
     .join('\n')
 
-  return `*Hello! Here are your current open pull requests:*\n${text}`;
+  return `*Hey team! We have open pull requests here! :sunny: *\n${text}`;
 }

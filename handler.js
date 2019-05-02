@@ -18,11 +18,9 @@ module.exports.githubPrNotify = async (event) => {
     const { data } = await octokit.request(`GET /repos/${repo}/pulls`);
 
     if (data.length) {
-      data.forEach(item => {
-        pull_requests.push({
-          title: item.title,
-          url: item.html_url
-        });
+      pull_requests.push({
+        'url': `https://github.com/${repo}/pulls`,
+        'title': `https://github.com/${repo} (${data.length})`
       });
     }
   }
