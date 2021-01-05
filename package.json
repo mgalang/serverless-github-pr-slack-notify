@@ -5,7 +5,7 @@
   "main": "handler.js",
   "dependencies": {
     "@octokit/rest": "^16.20.0",
-    "axios": "^0.18.1"
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "serverless-offline": "^4.9.2"
